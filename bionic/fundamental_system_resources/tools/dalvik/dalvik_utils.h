@@ -1,21 +1,21 @@
 #ifndef ZNA_DALVIK_UTILS_H
 #define ZNA_DALVIK_UTILS_H
 
-#include "dalvik.h"
-#include <iostream>
+#include <vector>
+#include <string>
+#include <cstdio>
 
-namespace zna {
-
-inline void PrintDalvikStats(const DalvikIR& ir) {
-    std::cout << "\n.ZNA Dalvik IR Statistics:\n";
-    std::cout << "  Strings      : " << ir.string_entries.size() << "\n";
-    std::cout << "  Types        : " << ir.type_entries.size() << "\n";
-    std::cout << "  Protos       : " << ir.proto_entries.size() << "\n";
-    std::cout << "  Fields       : " << ir.field_entries.size() << "\n";
-    std::cout << "  Methods      : " << ir.method_entries.size() << "\n";
-    std::cout << "  Annotations  : " << ir.annotation_entries.size() << "\n";
+// Função para imprimir qualquer pool de strings
+inline void PrintPool(const std::vector<std::string>& pool, const char* name) {
+    printf("==== Pool %s ====\n", name);
+    for (size_t i = 0; i < pool.size(); ++i) {
+        printf("%s[%zu]: %s\n", name, i, pool[i].c_str());
+    }
 }
 
-} // namespace zna
+// Funções auxiliares futuras podem ser adicionadas aqui
+inline void PrintHeaderInfo(const char* title) {
+    printf("\n==== %s ====\n", title);
+}
 
 #endif // ZNA_DALVIK_UTILS_H
