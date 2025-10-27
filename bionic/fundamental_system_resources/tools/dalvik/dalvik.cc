@@ -1,51 +1,86 @@
 #include "dalvik.h"
 #include "dalvik_utils.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
 
-// Função auxiliar para imprimir pools de forma genérica
-template<typename T>
-void PrintPool(const std::vector<T>& pool, const std::string& name) {
-    printf("  %-30s: %zu\n", name.c_str(), pool.size());
+using namespace std;
+
+// Função auxiliar para gerar nomes criativos
+string GenerateName(const string& prefix, int index) {
+    ostringstream oss;
+    oss << prefix << "_" << index;
+    return oss.str();
+}
+
+// Inicializa Dex IR do ZNA-OS com nomes criativos
+ZNA_DexIR InitializeDexIR() {
+    ZNA_DexIR ir;
+
+    for (int i = 1; i <= 100; ++i) {
+        ir.strings_pool.push_back(GenerateName("ZNA_String", i));
+        ir.types_pool.push_back(GenerateName("ZNA_Type", i));
+        ir.protos_pool.push_back(GenerateName("ZNA_Proto", i));
+        ir.fields_pool.push_back(GenerateName("ZNA_Field", i));
+        ir.encoded_fields_pool.push_back(GenerateName("ZNA_EncodedField", i));
+        ir.methods_pool.push_back(GenerateName("ZNA_Method", i));
+        ir.encoded_methods_pool.push_back(GenerateName("ZNA_EncodedMethod", i));
+        ir.classes_pool.push_back(GenerateName("ZNA_Class", i));
+        ir.method_handles_pool.push_back(GenerateName("ZNA_MethodHandle", i));
+        ir.type_list_pool.push_back(GenerateName("ZNA_TypeList", i));
+        ir.code_pool.push_back(GenerateName("ZNA_CodeBlock", i));
+        ir.debug_info_pool.push_back(GenerateName("ZNA_DebugInfo", i));
+        ir.encoded_value_pool.push_back(GenerateName("ZNA_EncodedValue", i));
+        ir.encoded_array_pool.push_back(GenerateName("ZNA_EncodedArray", i));
+        ir.annotation_pool.push_back(GenerateName("ZNA_Annotation", i));
+        ir.annotation_element_pool.push_back(GenerateName("ZNA_AnnotationElement", i));
+        ir.annotation_set_pool.push_back(GenerateName("ZNA_AnnotationSet", i));
+        ir.annotation_set_ref_list_pool.push_back(GenerateName("ZNA_AnnotationSetRefList", i));
+        ir.annotations_directories_pool.push_back(GenerateName("ZNA_AnnotationsDirectory", i));
+        ir.field_annotations_pool.push_back(GenerateName("ZNA_FieldAnnotation", i));
+        ir.method_annotations_pool.push_back(GenerateName("ZNA_MethodAnnotation", i));
+        ir.param_annotations_pool.push_back(GenerateName("ZNA_ParamAnnotation", i));
+    }
+
+    return ir;
+}
+
+// Imprime todos os itens de um pool
+void PrintPool(const vector<string>& pool, const string& pool_name) {
+    printf("\n=== %s ===\n", pool_name.c_str());
     for (size_t i = 0; i < pool.size(); ++i) {
-        printf("    [%zu] %s\n", i, pool[i].c_str());
+        printf("  %zu : %s\n", i + 1, pool[i].c_str());
     }
 }
 
+// Função principal
 int main() {
-    ZNA_DexIR ir;
+    ZNA_DexIR dex_ir = InitializeDexIR();
 
-    // Populando os pools restantes
-    ir.type_list_pool = {"[I", "[Ljava/lang/String;"};
-    ir.code_pool = {"code1", "code2", "code3"};
-    ir.debug_info_pool = {"dbg1", "dbg2"};
-    ir.encoded_value_pool = {"val1", "val2"};
-    ir.encoded_array_pool = {"arr1", "arr2"};
-    ir.annotation_pool = {"annot1", "annot2"};
-    ir.annotation_element_pool = {"elem1", "elem2"};
-    ir.annotation_set_pool = {"set1", "set2"};
-    ir.annotation_set_ref_list_pool = {"ref1", "ref2"};
-    ir.annotations_directories_pool = {"dir1", "dir2"};
-    ir.field_annotations_pool = {"field_annot1", "field_annot2"};
-    ir.method_annotations_pool = {"method_annot1", "method_annot2"};
-    ir.param_annotations_pool = {"param_annot1", "param_annot2"};
+    PrintPool(dex_ir.strings_pool, "Strings");
+    PrintPool(dex_ir.types_pool, "Types");
+    PrintPool(dex_ir.protos_pool, "Protos");
+    PrintPool(dex_ir.fields_pool, "Fields");
+    PrintPool(dex_ir.encoded_fields_pool, "Encoded Fields");
+    PrintPool(dex_ir.methods_pool, "Methods");
+    PrintPool(dex_ir.encoded_methods_pool, "Encoded Methods");
+    PrintPool(dex_ir.classes_pool, "Classes");
+    PrintPool(dex_ir.method_handles_pool, "Method Handles");
+    PrintPool(dex_ir.type_list_pool, "Type Lists");
+    PrintPool(dex_ir.code_pool, "Code Blocks");
+    PrintPool(dex_ir.debug_info_pool, "Debug Info");
+    PrintPool(dex_ir.encoded_value_pool, "Encoded Values");
+    PrintPool(dex_ir.encoded_array_pool, "Encoded Arrays");
+    PrintPool(dex_ir.annotation_pool, "Annotations");
+    PrintPool(dex_ir.annotation_element_pool, "Annotation Elements");
+    PrintPool(dex_ir.annotation_set_pool, "Annotation Sets");
+    PrintPool(dex_ir.annotation_set_ref_list_pool, "Annotation Set Ref Lists");
+    PrintPool(dex_ir.annotations_directories_pool, "Annotations Directories");
+    PrintPool(dex_ir.field_annotations_pool, "Field Annotations");
+    PrintPool(dex_ir.method_annotations_pool, "Method Annotations");
+    PrintPool(dex_ir.param_annotations_pool, "Parameter Annotations");
 
-    // Print de cada pool
-    PrintHeaderInfo(".dex IR statistics (cont.):");
-
-    PrintPool(ir.type_list_pool, "type_lists");
-    PrintPool(ir.code_pool, "code");
-    PrintPool(ir.debug_info_pool, "debug_info");
-    PrintPool(ir.encoded_value_pool, "encoded_values");
-    PrintPool(ir.encoded_array_pool, "encoded_arrays");
-    PrintPool(ir.annotation_pool, "annotations");
-    PrintPool(ir.annotation_element_pool, "annotation_elements");
-    PrintPool(ir.annotation_set_pool, "annotation_sets");
-    PrintPool(ir.annotation_set_ref_list_pool, "annotation_set_ref_lists");
-    PrintPool(ir.annotations_directories_pool, "annotations_directories");
-    PrintPool(ir.field_annotations_pool, "field_annotations");
-    PrintPool(ir.method_annotations_pool, "method_annotations");
-    PrintPool(ir.param_annotations_pool, "param_annotations");
-
-    printf("\nAll pools printed successfully!\n");
-
+    printf("\nAll Dex IR pools printed successfully for ZNA-OS!\n");
     return 0;
 }
