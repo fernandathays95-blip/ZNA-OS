@@ -5,13 +5,12 @@ INPUT_FILE = "mascot.txt"
 OUTPUT_FILE = "xdroid_mascot.png"
 
 # Map de caracteres Unicode quadrados para cores (você pode expandir conforme o mascote)
-UNICODE_COLOR_MAP = {
-    '█': (0, 0, 255),       # Quadrado cheio azul
-    '▓': (0, 0, 200),       # Azul mais escuro
-    '▒': (0, 0, 150),       # Azul médio
-    '░': (0, 0, 100),       # Azul claro
-    ' ': (0, 0, 0, 0),      # Transparente
-    # Você pode adicionar outros símbolos e cores aqui
+UNICODE_DETAILED_COLOR_MAP = {
+    '█': (0, 0, 255),   # Azul intenso
+    '▓': (0, 0, 200),   # Azul médio
+    '▒': (0, 0, 150),   # Azul claro
+    '░': (0, 0, 100),   # Azul mais claro
+    ' ': (0, 0, 0, 0),  # Transparente
 }
 
 def unicode_to_image(input_file: str, output_file: str):
