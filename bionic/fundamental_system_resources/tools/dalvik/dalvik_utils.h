@@ -5,17 +5,13 @@
 #include <string>
 #include <cstdio>
 
-// Função para imprimir qualquer pool de strings
-inline void PrintPool(const std::vector<std::string>& pool, const char* name) {
-    printf("==== Pool %s ====\n", name);
+// Função template para imprimir qualquer pool grande
+template<typename T>
+void PrintLargePool(const std::vector<T>& pool, const std::string& pool_name) {
+    printf("\nPrinting pool: %s\n", pool_name.c_str());
     for (size_t i = 0; i < pool.size(); ++i) {
-        printf("%s[%zu]: %s\n", name, i, pool[i].c_str());
+        printf("  %-35s[%zu] = %s\n", pool_name.c_str(), i, pool[i].c_str());
     }
-}
-
-// Funções auxiliares futuras podem ser adicionadas aqui
-inline void PrintHeaderInfo(const char* title) {
-    printf("\n==== %s ====\n", title);
 }
 
 #endif // ZNA_DALVIK_UTILS_H
