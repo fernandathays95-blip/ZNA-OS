@@ -4,17 +4,16 @@
 #include <vector>
 #include <string>
 
-// Estrutura principal do IR do ZNA-OS
 struct ZNA_DexIR {
-    std::vector<std::string> string_pool;
-    std::vector<std::string> type_pool;
-    std::vector<std::string> proto_pool;
-    std::vector<std::string> field_pool;
-    std::vector<std::string> encoded_field_pool;
-    std::vector<std::string> method_pool;
-    std::vector<std::string> encoded_method_pool;
-    std::vector<std::string> class_pool;
-    std::vector<std::string> method_handle_pool;
+    std::vector<std::string> strings_pool;
+    std::vector<std::string> types_pool;
+    std::vector<std::string> protos_pool;
+    std::vector<std::string> fields_pool;
+    std::vector<std::string> encoded_fields_pool;
+    std::vector<std::string> methods_pool;
+    std::vector<std::string> encoded_methods_pool;
+    std::vector<std::string> classes_pool;
+    std::vector<std::string> method_handles_pool;
     std::vector<std::string> type_list_pool;
     std::vector<std::string> code_pool;
     std::vector<std::string> debug_info_pool;
@@ -24,10 +23,10 @@ struct ZNA_DexIR {
     std::vector<std::string> annotation_element_pool;
     std::vector<std::string> annotation_set_pool;
     std::vector<std::string> annotation_set_ref_list_pool;
-    std::vector<std::string> annotation_dir_pool;
-    std::vector<std::string> field_annotation_pool;
-    std::vector<std::string> method_annotation_pool;
-    std::vector<std::string> param_annotation_pool;
+    std::vector<std::string> annotations_directories_pool;
+    std::vector<std::string> field_annotations_pool;
+    std::vector<std::string> method_annotations_pool;
+    std::vector<std::string> param_annotations_pool;
 };
 
 #endif // ZNA_DALVIK_H
